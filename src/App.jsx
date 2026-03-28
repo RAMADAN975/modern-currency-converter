@@ -13,43 +13,63 @@ function App() {
 
   const options = useMemo(() => Object.keys(currencyInfo), [currencyInfo]);
 
-  // ✅ Auto Convert (Debounce)
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!currencyInfo[to]) return;
+    if (!amount || !currencyInfo[to]) {
+      setConvertedAmount(0);
+      return;
+    }
 
-      const result = amount * currencyInfo[to];
-      setConvertedAmount(Number(result.toFixed(2)));
+    const timeout = setTimeout(() => {
+      try {
+        const result = amount * currencyInfo[to];
+        setConvertedAmount(Number(result.toFixed(2)));
+      } catch {
+        setConvertedAmount(0);
+      }
     }, 300);
 
     return () => clearTimeout(timeout);
   }, [amount, to, currencyInfo]);
 
-  // ✅ Swap FIXED
   const swap = () => {
-    const temp = from;
-    setFrom(to);
-    setTo(temp);
+    setFrom((prevFrom) => {
+      setTo(prevFrom);
+      return to;
+    });
 
-    const tempAmount = amount;
     setAmount(convertedAmount);
-    setConvertedAmount(tempAmount);
+    setConvertedAmount(amount);
   };
 
   return (
-    <div className="container-fluid vh-100 d-flex align-items-center justify-content-center"
-      style={{ background: '#1e293b' }}>
+    <div
+      className="container-fluid vh-100 d-flex align-items-center justify-content-center"
+      style={{ background: '#1e293b' }}
+    >
+      <div
+        className="card p-4 border-0 shadow-lg"
+        style={{
+          maxWidth: '450px',
+          width: '100%',
+          borderRadius: '25px',
+          backgroundColor: '#334155'
+        }}
+      >
+        <h3 className="text-center mb-2 fw-bold text-white">
+          Currency Converter
+        </h3>
 
-      <div className="card p-4 border-0 shadow-lg"
-        style={{ maxWidth: '450px', width: '100%', borderRadius: '25px', backgroundColor: '#334155' }}>
+        <p className="text-center text-secondary small mb-3">
+          Live exchange rates
+        </p>
 
-        <h3 className="text-center mb-4 fw-bold text-white">Currency Converter</h3>
+        {loading && (
+          <p className="text-center text-info">Loading...</p>
+        )}
 
-        {/* Loading */}
-        {loading && <p className="text-center text-info">Loading...</p>}
-
-        {/* Error */}
-        {error && <p className="text-center text-danger">{error}</p>}
+        {error && (
+          <p className="text-center text-danger">{error}</p>
+        )}
 
         <form onSubmit={(e) => e.preventDefault()}>
 
@@ -60,16 +80,18 @@ function App() {
             onCurrencyChange={setFrom}
             selectCurrency={from}
             onAmountChange={setAmount}
+            amountDisable={loading}
+            currencyDisable={loading}
           />
 
-          {/* Swap */}
           <div className="text-center my-3">
             <button
               type="button"
               className="btn btn-primary rounded-pill px-4 shadow"
               onClick={swap}
+              disabled={loading}
             >
-              🔄 SWAP
+              {loading ? "..." : "🔄 Swap"}
             </button>
           </div>
 
@@ -80,6 +102,7 @@ function App() {
             onCurrencyChange={setTo}
             selectCurrency={to}
             amountDisable
+            currencyDisable={loading}
           />
 
         </form>

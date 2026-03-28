@@ -33,7 +33,18 @@ function InputBox({
                     placeholder="0"
                     disabled={amountDisable}
                     value={amount === 0 ? "" : amount}
-                    onChange={(e) => onAmountChange && onAmountChange(e.target.value === "" ? 0 : Number(e.target.value))}
+                    onChange={(e) => {
+                        const value = e.target.value;
+
+                        if (value === "") {
+                            onAmountChange(0);
+                            return;
+                        }
+
+                        if (!isNaN(value) && value >= 0) {
+                            onAmountChange(Number(value));
+                        }
+                    }}
                 />
             </div>
             <div className="w-50 text-end d-flex flex-column align-items-end">
