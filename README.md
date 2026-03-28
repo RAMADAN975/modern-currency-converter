@@ -1,16 +1,24 @@
-# React + Vite
+# 🌍 Global Xchange - Modern Currency Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional, real-time currency converter built with **React.js** and **Bootstrap**. This project demonstrates high-level React concepts including custom hooks, performance optimization, and modern UI design.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Real-time Conversion:** Fetches live exchange rates using a reliable Currency API.
+- **Custom Currency Hook:** Implementation of a specialized `useCurrencyInfo` hook for clean data fetching.
+- **Performance Optimized:** Uses `useMemo` for heavy calculations and `Debouncing` to prevent unnecessary re-renders.
+- **Modern Glassmorphism UI:** A sleek, dark-themed design with backdrop blur effects.
+- **Responsive & Interactive:** Fully functional "Swap" feature and auto-calculation logic.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend:** React.js (Vite)
+- **Styling:** Bootstrap 5 & Custom CSS (Glassmorphism)
+- **API:** [Fawaz Ahmed's Currency API](https://github.com/fawazahmed0/currency-api)
+- **State Management:** React Hooks (`useState`, `useEffect`, `useMemo`, `useId`)
 
-## Expanding the ESLint configuration
+## 📦 Installation & Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/RAMADAN975/modern-currency-converter.git](https://github.com/RAMADAN975/modern-currency-converter.git)
